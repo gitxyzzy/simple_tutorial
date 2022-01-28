@@ -3,8 +3,8 @@
 ## State Management
 - [x] setState
 - [x] ChangeNotifier (~~naive~~ + lib)
-- [ ] Dependency Injection
-- [ ] Provider
+- [x] Dependency Injection
+- [x] Provider
 - [ ] StateProvider (naive)
 - [ ] ValueNotifier
 - [ ] Futures & Streams

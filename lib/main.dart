@@ -9,65 +9,49 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CounterScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => Counter(),
+      child: MaterialApp(
+        home: CounterScreen(),
+      ),
     );
   }
 }
 
-class CounterScreen extends StatelessWidget {
-  final counter = Counter();
+// widget --> element + state
 
+class CounterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: counter,
-      child: Scaffold(
-        appBar: AppBar(title: Text("Counter")),
-        floatingActionButton: FloatingActionButton(
-          onPressed: counter.increment,
-          child: Icon(Icons.add),
-        ),
-        body: Center(
-          child: CounterValue(),
+    return Scaffold(
+      appBar: AppBar(title: Text("Counter")),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // final counter = Provider.of<Counter>(context, listen: false);
+          final counter = context.read<Counter>();
+          counter.increment();
+        },
+        child: Icon(Icons.add),
+      ),
+      body: Center(
+        child: Consumer<Counter>(
+          builder: (context, counter, _) {
+            return Text(
+              counter.value.toString(),
+              style: TextStyle(fontSize: 40),
+            );
+          },
         ),
       ),
     );
   }
 }
 
-class CounterValue extends StatefulWidget {
-  @override
-  _CounterValueState createState() => _CounterValueState();
-}
-
-class _CounterValueState extends State<CounterValue> {
-  void counterValueListener() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    // call counterValueListener when value changes
-    final counter = Provider.of<Counter>(context, listen: false);
-    counter.addListener(counterValueListener);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    final counter = Provider.of<Counter>(context, listen: false);
-    counter.removeListener(counterValueListener);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
-    return Text(
-      counter.value.toString(),
-      style: TextStyle(fontSize: 40),
-    );
-  }
-}
+// class CounterValue extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     // final counter = Provider.of<Counter>(context);
+//     final counter = context.watch<Counter>();
+   
+//   }
+// }
