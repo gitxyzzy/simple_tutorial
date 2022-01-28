@@ -14,33 +14,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({Key? key}) : super(key: key);
-
-  @override
-  _CounterScreenState createState() => _CounterScreenState();
-}
-
-class _CounterScreenState extends State<CounterScreen> {
+class CounterScreen extends StatelessWidget {
   final counter = Counter();
-
-  void counterValueListener() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    // call counterValueListener when value changes
-    counter.addListener(counterValueListener);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    counter.removeListener(counterValueListener);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +27,45 @@ class _CounterScreenState extends State<CounterScreen> {
         child: Icon(Icons.add),
       ),
       body: Center(
-        child: Text(
-          counter.value.toString(),
-          style: TextStyle(fontSize: 40),
-        ),
+        child: CounterValue(counter),
       ),
+    );
+  }
+}
+
+class CounterValue extends StatefulWidget {
+  final Counter counter;
+
+  CounterValue(this.counter);
+
+  @override
+  _CounterValueState createState() => _CounterValueState();
+}
+
+class _CounterValueState extends State<CounterValue> {
+  void counterValueListener() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // call counterValueListener when value changes
+    widget.counter.addListener(counterValueListener);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.counter.removeListener(counterValueListener);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      widget.counter.value.toString(),
+      style: TextStyle(fontSize: 40),
     );
   }
 }
