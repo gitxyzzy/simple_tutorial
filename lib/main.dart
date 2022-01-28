@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_tutorial/counter.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,25 +22,38 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
-  int counterValue = 0;
+  final counter = Counter();
 
-  void increment() {
-    setState(() {
-      counterValue++;
-    });
+  void counterValueListener() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // call counterValueListener when value changes
+    counter.addListener(counterValueListener);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    counter.removeListener(counterValueListener);
   }
 
   @override
   Widget build(BuildContext context) {
+    print('build was called');
     return Scaffold(
       appBar: AppBar(title: Text("Counter")),
       floatingActionButton: FloatingActionButton(
-        onPressed: increment,
+        onPressed: counter.increment,
         child: Icon(Icons.add),
       ),
       body: Center(
         child: Text(
-          counterValue.toString(),
+          counter.value.toString(),
           style: TextStyle(fontSize: 40),
         ),
       ),
