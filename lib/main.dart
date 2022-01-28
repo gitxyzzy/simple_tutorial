@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_tutorial/counter.dart';
 
 void main() {
@@ -19,25 +20,23 @@ class CounterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build was called');
-    return Scaffold(
-      appBar: AppBar(title: Text("Counter")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: counter.increment,
-        child: Icon(Icons.add),
-      ),
-      body: Center(
-        child: CounterValue(counter),
+    return ChangeNotifierProvider.value(
+      value: counter,
+      child: Scaffold(
+        appBar: AppBar(title: Text("Counter")),
+        floatingActionButton: FloatingActionButton(
+          onPressed: counter.increment,
+          child: Icon(Icons.add),
+        ),
+        body: Center(
+          child: CounterValue(),
+        ),
       ),
     );
   }
 }
 
 class CounterValue extends StatefulWidget {
-  final Counter counter;
-
-  CounterValue(this.counter);
-
   @override
   _CounterValueState createState() => _CounterValueState();
 }
@@ -52,19 +51,22 @@ class _CounterValueState extends State<CounterValue> {
     super.initState();
 
     // call counterValueListener when value changes
-    widget.counter.addListener(counterValueListener);
+    final counter = Provider.of<Counter>(context, listen: false);
+    counter.addListener(counterValueListener);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.counter.removeListener(counterValueListener);
+    final counter = Provider.of<Counter>(context, listen: false);
+    counter.removeListener(counterValueListener);
   }
 
   @override
   Widget build(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
     return Text(
-      widget.counter.value.toString(),
+      counter.value.toString(),
       style: TextStyle(fontSize: 40),
     );
   }
