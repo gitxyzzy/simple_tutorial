@@ -2,7 +2,7 @@
 
 ## State Management
 - [x] setState
-- [ ] ChangeNotifier (~~naive~~ + lib)
+- [x] ChangeNotifier (~~naive~~ + lib)
 - [ ] Dependency Injection
 - [ ] Provider
 - [ ] StateProvider (naive)
