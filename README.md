@@ -5,7 +5,8 @@
 - [x] ChangeNotifier (~~naive~~ + lib)
 - [x] Dependency Injection
 - [x] Provider
-- [ ] StateProvider (naive)
+
+- [x] StateProvider (naive)
 - [ ] ValueNotifier
 - [ ] Futures & Streams
 - [ ] BLOC pattern (StateNotifier naive)

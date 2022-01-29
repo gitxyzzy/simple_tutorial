@@ -28,8 +28,9 @@ class CounterScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // final counter = Provider.of<Counter>(context, listen: false);
-          final counter = context.read<Counter>();
-          counter.increment();
+          // final counter = context.read<Counter>();
+          // counter.value++;
+          context.read<Counter>().value++;
         },
         child: Icon(Icons.add),
       ),
