@@ -24,44 +24,56 @@ class CounterScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Counter")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counter.addEvent(Events.Increment);
+          counter.increment();
         },
         child: Icon(Icons.add),
       ),
       body: Center(
-        child: CounterValue(counter),
+        child: StreamBuilder<int>(
+          stream: counter.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                snapshot.data.toString(),
+                style: TextStyle(fontSize: 40),
+              );
+            } else {
+              return Text("An error occurred!");
+            }
+          },
+        ),
       ),
     );
   }
 }
 
-class CounterValue extends StatefulWidget {
-  final Counter counter;
+// class CounterValue extends StatefulWidget {
+//   final Counter counter;
 
-  CounterValue(this.counter);
+//   CounterValue(this.counter);
 
-  @override
-  State<CounterValue> createState() => _CounterValueState();
-}
+//   @override
+//   State<CounterValue> createState() => _CounterValueState();
+// }
 
-class _CounterValueState extends State<CounterValue> {
-  int counterValue = 0;
+// class _CounterValueState extends State<CounterValue> {
+//   int counterValue = 0;
 
-  void updateValue(int newValue) {
-    setState(() => counterValue = newValue);
-  }
+//   void updateValue(int newValue) {
+//     setState(() => counterValue = newValue);
+//   }
 
-  @override
-  void initState() {
-    super.initState();
-    widget.counter.stream.listen(updateValue);
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     widget.counter.stream.listen(updateValue);
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      counterValue.toString(),
-      style: TextStyle(fontSize: 40),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(
+//       counterValue.toString(),
+//       style: TextStyle(fontSize: 40),
+//     );
+//   }
+// }

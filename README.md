@@ -10,6 +10,6 @@
 - [x] ValueNotifier
 - [x] Futures & Streams
 - [x] BLOC pattern (StateNotifier naive)
-- [ ] StateNotifier (lib)
-- [ ] StateProvider (lib)
-- [ ] Providers & equivalent Riverpods
+- [x] StateNotifier (lib)
+- [x] StateProvider (lib)
+- [x] Providers & equivalent Riverpods
