@@ -8,8 +8,8 @@
 
 - [x] StateProvider (naive)
 - [x] ValueNotifier
-- [ ] Futures & Streams
-- [ ] BLOC pattern (StateNotifier naive)
+- [x] Futures & Streams
+- [x] BLOC pattern (StateNotifier naive)
 - [ ] StateNotifier (lib)
 - [ ] StateProvider (lib)
 - [ ] Providers & equivalent Riverpods

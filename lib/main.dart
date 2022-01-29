@@ -9,36 +9,59 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Counter(),
-      child: MaterialApp(
-        home: CounterScreen(),
-      ),
+    return MaterialApp(
+      home: CounterScreen(),
     );
   }
 }
 
 class CounterScreen extends StatelessWidget {
+  final counter = Counter();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Counter")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<Counter>().value++;
+          counter.increment();
         },
         child: Icon(Icons.add),
       ),
       body: Center(
-        child: Consumer<Counter>(
-          builder: (context, counter, _) {
-            return Text(
-              counter.value.toString(),
-              style: TextStyle(fontSize: 40),
-            );
-          },
-        ),
+        child: CounterValue(counter),
       ),
+    );
+  }
+}
+
+class CounterValue extends StatefulWidget {
+  final Counter counter;
+
+  CounterValue(this.counter);
+
+  @override
+  State<CounterValue> createState() => _CounterValueState();
+}
+
+class _CounterValueState extends State<CounterValue> {
+  int counterValue = 0;
+
+  void updateValue(int newValue) {
+    setState(() => counterValue = newValue);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.counter.stream.listen(updateValue);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      counterValue.toString(),
+      style: TextStyle(fontSize: 40),
     );
   }
 }
