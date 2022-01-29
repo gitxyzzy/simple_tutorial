@@ -7,7 +7,7 @@
 - [x] Provider
 
 - [x] StateProvider (naive)
-- [ ] ValueNotifier
+- [x] ValueNotifier
 - [ ] Futures & Streams
 - [ ] BLOC pattern (StateNotifier naive)
 - [ ] StateNotifier (lib)

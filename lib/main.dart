@@ -18,8 +18,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// widget --> element + state
-
 class CounterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,9 +25,6 @@ class CounterScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Counter")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // final counter = Provider.of<Counter>(context, listen: false);
-          // final counter = context.read<Counter>();
-          // counter.value++;
           context.read<Counter>().value++;
         },
         child: Icon(Icons.add),
@@ -47,12 +42,3 @@ class CounterScreen extends StatelessWidget {
     );
   }
 }
-
-// class CounterValue extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // final counter = Provider.of<Counter>(context);
-//     final counter = context.watch<Counter>();
-   
-//   }
-// }
