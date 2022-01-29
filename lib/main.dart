@@ -24,7 +24,7 @@ class CounterScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Counter")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counter.increment();
+          counter.addEvent(Events.Increment);
         },
         child: Icon(Icons.add),
       ),
